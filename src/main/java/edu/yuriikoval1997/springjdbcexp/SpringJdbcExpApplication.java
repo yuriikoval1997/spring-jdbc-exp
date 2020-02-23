@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpringJdbcExpApplication implements CommandLineRunner {
@@ -14,7 +15,7 @@ public class SpringJdbcExpApplication implements CommandLineRunner {
     private final CustomerDao customerDao;
 
     public SpringJdbcExpApplication(
-        @Qualifier("employeeDaoWithNamedJdbcTemplate") EmployeeDao employeeDao,
+        @Qualifier("employeeDaoWithJdbcTemplate") EmployeeDao employeeDao,
         CustomerDao customerDao) {
         this.employeeDao = employeeDao;
         this.customerDao = customerDao;
@@ -28,6 +29,9 @@ public class SpringJdbcExpApplication implements CommandLineRunner {
     public void run(String... args) {
         customerDao
             .findAllCustomersEager()
+            .forEach(System.out::println);
+        employeeDao
+            .findAll()
             .forEach(System.out::println);
     }
 }

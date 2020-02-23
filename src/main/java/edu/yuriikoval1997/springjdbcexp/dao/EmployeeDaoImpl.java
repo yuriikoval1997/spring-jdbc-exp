@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
         this.employeeMapper = employeeMapper;
     }
 
+    /**
+     * See also {@link BeanPropertyRowMapper}
+     * > Column values are mapped based on matching the column name as obtained from result set
+     *   meta-data to public setters for the corresponding properties. The names are matched either
+     *   directly or by transforming a name separating the parts with underscores to the same name
+     *   using "camel" case.
+     *
+     * @return {@link List} if {@link Employee}s.
+     */
     @Override
     public List<Employee> findAll() {
         return jdbcTemplate.query(
