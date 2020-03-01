@@ -39,7 +39,7 @@ public class EmployeeDaoNamed implements EmployeeDao {
      * @param employee {@link Employee}
      */
     @Override
-    public void create(Employee employee) {
+    public void save(Employee employee) {
         var keyHolder = new GeneratedKeyHolder();
         var params = new MapSqlParameterSource(Map.of(
             "employeeName", employee.getEmployeeName(),
@@ -48,7 +48,7 @@ public class EmployeeDaoNamed implements EmployeeDao {
             "gender", employee.getGender()
         ));
         // If you do not specify the name of columns you want to retrieve after the insertion,
-        // you will get all of the field (at least with Postgresql)
+        // you will get all the field (at least with Postgresql)
         namedJdbc.update(
             "INSERT INTO employee_table (employee_name, salary, email, gender) " +
                 "VALUES (:employeeName, :salary, :email, :gender)",

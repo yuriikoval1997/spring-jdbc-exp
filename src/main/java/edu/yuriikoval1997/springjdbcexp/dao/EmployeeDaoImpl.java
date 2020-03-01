@@ -52,7 +52,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
      * @param employee {@link Employee}
      */
     @Override
-    public void create(Employee employee) {
+    public void save(Employee employee) {
         var keyHolder = new GeneratedKeyHolder();
         // If you do not specify the name of columns you want to retrieve after the insertion,
         // you will get all of the field (at least with Postgresql)
@@ -87,7 +87,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return Optional.empty();
         }
         if (res.size() > 1) {
-            throw new NoUniqueResult("There are more than one employee with given id!");
+            throw new NoUniqueResult("There is more than one employee with given id!");
         }
         return Optional.of(res.get(0));
     }
